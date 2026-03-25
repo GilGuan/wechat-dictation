@@ -1,0 +1,392 @@
+/* pages/dictation/dictation.wxss */
+
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部栏 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.progress-text {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.header-right {
+  flex-shrink: 0;
+}
+
+.speed-selector {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 20rpx;
+  background: #f0f0f0;
+  border-radius: 20rpx;
+}
+
+.speed-icon {
+  font-size: 24rpx;
+}
+
+.speed-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 进度条 */
+.progress-bar-container {
+  padding: 16rpx 32rpx;
+  background: #fff;
+}
+
+.progress-bar {
+  width: 100%;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+/* 主内容区 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx 32rpx;
+  padding-bottom: 120rpx;
+}
+
+/* 播放按钮区域 */
+.play-section {
+  margin-bottom: 48rpx;
+}
+
+.play-button {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #07c160 0%, #05a550 100%);
+  border: none;
+  box-shadow: 0 8rpx 32rpx rgba(7, 193, 96, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.play-button:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
+}
+
+.play-button[disabled] {
+  background: linear-gradient(135deg, #ccc 0%, #bbb 100%);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.play-icon {
+  color: #fff;
+  font-size: 56rpx;
+  text-align: center;
+}
+
+.play-button.playing {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* 词语显示区域 */
+.word-section {
+  width: 100%;
+  margin-bottom: 48rpx;
+}
+
+.word-display {
+  text-align: center;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.word-pinyin {
+  display: block;
+  font-size: 32rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+  letter-spacing: 4rpx;
+}
+
+.word-text {
+  display: block;
+  font-size: 72rpx;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.word-lesson {
+  display: block;
+  font-size: 24rpx;
+  color: #bbb;
+  margin-top: 16rpx;
+}
+
+.hint-text {
+  display: block;
+  font-size: 28rpx;
+  color: #07c160;
+  font-weight: 500;
+  margin-top: 16rpx;
+}
+
+.word-hint {
+  text-align: center;
+  padding: 32rpx;
+}
+
+.hint-icon {
+  display: block;
+  font-size: 48rpx;
+  margin-bottom: 16rpx;
+}
+
+.hint-text {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+}
+
+.error-msg {
+  text-align: center;
+  padding: 16rpx;
+  margin-top: 16rpx;
+  background: #fff3cd;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  color: #856404;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  width: 100%;
+  display: flex;
+  gap: 16rpx;
+}
+
+.btn-prev, .btn-replay, .btn-next {
+  flex: 1;
+  padding: 24rpx 16rpx;
+  border-radius: 16rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  font-size: 28rpx;
+  transition: all 0.2s;
+}
+
+.btn-prev {
+  background: #fff;
+  color: #07c160;
+  border: 2rpx solid #07c160;
+}
+
+.btn-prev:active {
+  background: #f0fdf4;
+  transform: scale(0.98);
+}
+
+.btn-prev[disabled] {
+  background: #f5f5f5;
+  color: #ccc;
+  border-color: #e8e8e8;
+}
+
+.btn-replay {
+  background: #fff;
+  color: #07c160;
+  border: 2rpx solid #07c160;
+}
+
+.btn-replay:active {
+  background: #f0fdf4;
+  transform: scale(0.98);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #07c160 0%, #05a550 100%);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
+}
+
+.btn-next:active {
+  transform: scale(0.98);
+}
+
+.btn-icon {
+  font-size: 24rpx;
+}
+
+.btn-text {
+  font-size: 28rpx;
+}
+
+/* 完成弹窗 */
+.completion-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.completion-content {
+  width: 85%;
+  max-width: 600rpx;
+  max-height: 80vh;
+  background: #fff;
+  border-radius: 32rpx;
+  padding: 48rpx 32rpx;
+  text-align: center;
+  box-shadow: 0 16rpx 64rpx rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.4s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.completion-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+  animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20rpx); }
+}
+
+.completion-title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #07c160;
+  margin-bottom: 12rpx;
+}
+
+.completion-stats {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 24rpx;
+}
+
+.completion-buttons {
+  display: flex;
+  gap: 16rpx;
+}
+
+.completion-buttons .btn-primary {
+  flex: 1;
+  padding: 24rpx;
+  background: linear-gradient(135deg, #07c160 0%, #05a550 100%);
+  color: #fff;
+  border: none;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  box-shadow: 0 4rpx 16rpx rgba(7, 193, 96, 0.3);
+}
+
+.completion-buttons .btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* 词汇列表容器 */
+.word-list-container {
+  width: 100%;
+  margin-bottom: 32rpx;
+  text-align: left;
+}
+
+.word-list-header {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+  font-weight: 600;
+}
+
+.word-scroll {
+  max-height: 400rpx;
+  width: 100%;
+}
+
+.word-item {
+  padding: 16rpx 24rpx;
+  background: #f7f7f7;
+  border-radius: 8rpx;
+  margin-bottom: 12rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.word-item-pinyin {
+  font-size: 24rpx;
+  color: #999;
+  min-width: 120rpx;
+}
+
+.word-item-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: 600;
+  flex: 1;
+}
+
+.word-item-lesson {
+  font-size: 24rpx;
+  color: #bbb;
+}

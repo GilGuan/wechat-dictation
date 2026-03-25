@@ -1,0 +1,281 @@
+/* pages/lesson-select/lesson-select.wxss */
+
+.container {
+  padding: 24rpx;
+  padding-bottom: 200rpx;
+  background: #f7f7f7;
+  min-height: 100vh;
+}
+
+.section {
+  margin-bottom: 32rpx;
+}
+
+.section-label {
+  font-size: 24rpx;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 2rpx;
+  margin-bottom: 12rpx;
+  font-weight: 600;
+}
+
+/* Pill 选择器 */
+.pill-row {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.pill {
+  padding: 12rpx 28rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  color: #333;
+  background: #fff;
+  transition: all 0.2s;
+}
+
+.pill.selected {
+  border-color: #07c160;
+  color: #07c160;
+  background: #f0fdf4;
+  font-weight: 600;
+}
+
+/* 课文列表 */
+.lesson-list {
+  margin-top: 16rpx;
+}
+
+.lesson-container {
+  margin-bottom: 16rpx;
+}
+
+.lesson-header {
+  position: relative;
+}
+
+.lesson-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22rpx 24rpx;
+  border: 2rpx solid #e8e8e8;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #222;
+  background: #fff;
+  transition: all 0.2s;
+}
+
+.lesson-row.expanded {
+  border-color: #07c160;
+  background: #f0fdf4;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.lesson-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.lesson-title {
+  font-weight: 500;
+}
+
+.lesson-count {
+  color: #999;
+  font-size: 24rpx;
+}
+
+.lesson-actions {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.selected-count {
+  color: #07c160;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.expand-icon {
+  color: #999;
+  font-size: 24rpx;
+  transition: transform 0.2s;
+}
+
+/* 全选按钮 */
+.select-all-btn {
+  position: absolute;
+  right: 0;
+  top: -40rpx;
+  padding: 8rpx 20rpx;
+  background: #fff;
+  border: 2rpx solid #07c160;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: #07c160;
+  z-index: 10;
+}
+
+/* 词语列表 */
+.word-list {
+  background: #fff;
+  border: 2rpx solid #07c160;
+  border-top: none;
+  border-bottom-left-radius: 12rpx;
+  border-bottom-right-radius: 12rpx;
+  padding: 8rpx 0;
+}
+
+.word-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 24rpx;
+  margin: 0 12rpx;
+  border-radius: 8rpx;
+  transition: background 0.2s;
+}
+
+.word-row.selected {
+  background: #f0fdf4;
+}
+
+.word-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.word-text {
+  font-size: 28rpx;
+  color: #222;
+  font-weight: 500;
+}
+
+.word-pinyin {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.word-check {
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #07c160;
+  font-weight: bold;
+}
+
+/* 加载状态 */
+.loading {
+  padding: 40rpx;
+  text-align: center;
+  color: #999;
+  font-size: 24rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  padding: 80rpx 40rpx;
+  text-align: center;
+}
+
+.empty-state text {
+  display: block;
+  color: #999;
+  font-size: 28rpx;
+  margin-bottom: 24rpx;
+}
+
+.contact-btn {
+  padding: 16rpx 32rpx;
+  background: #07c160;
+  color: #fff;
+  border: none;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+/* 警告提示 */
+.warning-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff3cd;
+  padding: 16rpx 24rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 2rpx solid #ffc107;
+  z-index: 1000;
+}
+
+.warning-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.warning-text {
+  flex: 1;
+  font-size: 24rpx;
+  color: #856404;
+}
+
+/* 底部栏 */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 24rpx;
+  border-top: 2rpx solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  box-shadow: 0 -2rpx 8rpx rgba(0,0,0,0.05);
+}
+
+.cta-button {
+  width: 100%;
+  padding: 28rpx;
+  background: #07c160;
+  color: #fff;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 16rpx;
+  border: none;
+  box-shadow: 0 4rpx 12rpx rgba(7,193,96,0.3);
+}
+
+.cta-button.disabled {
+  background: #ccc;
+  box-shadow: none;
+}
+
+.cta-button[disabled] {
+  opacity: 0.5;
+}
+
+.secondary-button {
+  width: 100%;
+  padding: 24rpx;
+  background: #fff;
+  color: #07c160;
+  text-align: center;
+  font-size: 28rpx;
+  border: 2rpx solid #07c160;
+  border-radius: 16rpx;
+}

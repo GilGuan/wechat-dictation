@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/lesson-select/lesson-select",
+    "pages/dictation/dictation"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTitleText": "词汇听写",
+    "navigationBarTextStyle": "white"
+  },
+  "debug": true
+}

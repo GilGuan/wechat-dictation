@@ -1,0 +1,122 @@
+<!--pages/lesson-select/lesson-select.wxml-->
+<view class="container">
+  <!-- 年级选择 -->
+  <view class="section">
+    <view class="section-label">年级</view>
+    <view class="pill-row">
+      <view
+        wx:for="{{grades}}"
+        wx:key="index"
+        class="pill {{gradeIndex === index ? 'selected' : ''}}"
+        bindtap="onGradeChange"
+        data-index="{{index}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 科目选择 -->
+  <view class="section">
+    <view class="section-label">科目</view>
+    <view class="pill-row">
+      <view
+        wx:for="{{subjects}}"
+        wx:key="index"
+        class="pill {{subjectIndex === index ? 'selected' : ''}}"
+        bindtap="onSubjectChange"
+        data-index="{{index}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 册次选择 -->
+  <view class="section">
+    <view class="section-label">册次</view>
+    <view class="pill-row">
+      <view
+        wx:for="{{semesters}}"
+        wx:key="index"
+        class="pill {{semesterIndex === index ? 'selected' : ''}}"
+        bindtap="onSemesterChange"
+        data-index="{{index}}">
+        {{item}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 课文列表 -->
+  <view class="section">
+    <view class="section-label">选择课文（点击展开，选择词语）</view>
+
+    <view wx:if="{{loading}}" class="loading">
+      <view class="loading-text">加载中...</view>
+    </view>
+
+    <view wx:elif="{{lessons.length === 0}}" class="empty-state">
+      <view class="empty-text">暂无课文数据</view>
+    </view>
+
+    <view wx:else class="lesson-list">
+      <view wx:for="{{lessons}}" wx:key="id" class="lesson-container">
+        <!-- 课文标题行 -->
+        <view class="lesson-header">
+          <view
+            class="lesson-row {{item.expanded ? 'expanded' : ''}}"
+            bindtap="toggleLessonExpand"
+            data-id="{{item.id}}">
+            <view class="lesson-info">
+              <text class="lesson-title">{{item.title}}</text>
+              <text class="lesson-count">{{item.wordCount}}词</text>
+            </view>
+            <view class="lesson-actions">
+              <text wx:if="{{item.selectedWordCount > 0}}" class="selected-count">{{item.selectedWordCount}}/{{item.wordCount}}</text>
+              <text class="expand-icon">{{item.expanded ? '▼' : '▶'}}</text>
+            </view>
+          </view>
+          <!-- 全选按钮 -->
+          <view wx:if="{{item.expanded}}" class="select-all-btn" bindtap="toggleSelectAll" data-id="{{item.id}}">
+            <text>{{item.selectedWordCount === item.wordCount ? '取消全选' : '全选'}}</text>
+          </view>
+        </view>
+
+        <!-- 词语列表（展开时显示） -->
+        <view wx:if="{{item.expanded}}" class="word-list">
+          <view
+            wx:for="{{item.words}}"
+            wx:for-item="word"
+            wx:for-index="wordIndex"
+            wx:key="text"
+            class="word-row {{word.selected ? 'selected' : ''}}"
+            bindtap="toggleWord"
+            data-lesson-id="{{item.id}}"
+            data-word-index="{{wordIndex}}">
+            <view class="word-content">
+              <text class="word-text">{{word.text}}</text>
+              <text class="word-pinyin">{{word.pinyin}}</text>
+            </view>
+            <view class="word-check">
+              <text wx:if="{{word.selected}}">✓</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 警告提示 -->
+  <view wx:if="{{showWarning}}" class="warning-banner">
+    <text class="warning-icon">⚠️</text>
+    <text class="warning-text">{{warningText}}</text>
+  </view>
+
+  <!-- 底部 CTA -->
+  <view class="bottom-bar">
+    <button
+      class="cta-button {{totalWordCount === 0 ? 'disabled' : ''}}"
+      bindtap="startDictation"
+      disabled="{{totalWordCount === 0}}">
+      开始听写（{{totalWordCount}}个词）
+    </button>
+  </view>
+</view>

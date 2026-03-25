@@ -1,0 +1,24 @@
+# 微信小程序
+.DS_Store
+node_modules/
+miniprogram_npm/
+
+# 微信开发者工具
+.project
+.idea/
+
+# 敏感配置文件
+config/tts-config.js
+*.secret.js
+
+# 临时文件
+*.log
+*.tmp
+.cache/
+
+# 音频缓存
+tts_*.mp3
+
+# 环境配置
+.env
+.env.local

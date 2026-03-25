@@ -1,0 +1,96 @@
+<!--pages/dictation/dictation.wxml-->
+<view class="container">
+  <!-- 顶部栏 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="progress-text">{{currentIndex + 1}} / {{totalWords}}</text>
+    </view>
+    <view class="header-right">
+      <picker mode="selector" range="{{speedOptions}}" value="{{speedIndex}}" bindchange="onSpeedChange">
+        <view class="speed-selector">
+          <text class="speed-icon">⚡</text>
+          <text class="speed-text">{{speedOptions[speedIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 进度条 -->
+  <view class="progress-bar-container">
+    <progress class="progress-bar" percent="{{progress}}" active stroke-width="4" backgroundColor="#e8e8e8" activeColor="#07c160" />
+  </view>
+
+  <!-- 主内容区 -->
+  <view class="main-content">
+    <!-- 播放按钮 -->
+    <view class="play-section">
+      <button class="play-button {{isPlaying ? 'playing' : ''}}" bindtap="playWord" disabled="{{loading}}">
+        <view class="play-icon">
+          <text wx:if="{{loading}}">⏳</text>
+          <text wx:elif="{{isPlaying}}">⏸</text>
+          <text wx:else>▶</text>
+        </view>
+      </button>
+    </view>
+
+    <!-- 词语显示 -->
+    <view class="word-section">
+      <!-- 播放中：只显示拼音提示 -->
+      <view wx:if="{{currentWord && isPlaying}}" class="word-display">
+        <text class="word-pinyin">{{currentWord.pinyin}}</text>
+        <text class="hint-text">请根据读音写出词语</text>
+      </view>
+
+      <!-- 播放完成：只显示拼音，等待学生写完 -->
+      <view wx:elif="{{currentWord && !isPlaying}}" class="word-display">
+        <text class="word-pinyin">{{currentWord.pinyin}}</text>
+        <text class="hint-text">写完后点击"下一个"</text>
+      </view>
+
+      <view wx:if="{{errorMsg}}" class="error-msg">
+        <text>{{errorMsg}}</text>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="btn-prev" bindtap="prevWord" disabled="{{currentIndex === 0}}">
+        <text class="btn-icon">←</text>
+        <text class="btn-text">上一个</text>
+      </button>
+      <button class="btn-replay" bindtap="replayWord">
+        <text class="btn-icon">🔄</text>
+        <text class="btn-text">重播</text>
+      </button>
+      <button class="btn-next" bindtap="nextWord">
+        <text class="btn-text">下一个</text>
+        <text class="btn-icon">→</text>
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 完成弹窗 -->
+<view wx:if="{{completed}}" class="completion-modal">
+  <view class="completion-content">
+    <view class="completion-icon">🎉</view>
+    <text class="completion-title">太棒了！</text>
+    <text class="completion-stats">完成 {{totalWords}} 个词语的听写</text>
+
+    <!-- 显示所有词汇列表 -->
+    <view class="word-list-container">
+      <view class="word-list-header">本次听写的词语：</view>
+      <scroll-view scroll-y class="word-scroll">
+        <view wx:for="{{words}}" wx:key="text" class="word-item">
+          <text class="word-item-pinyin">{{item.pinyin}}</text>
+          <text class="word-item-text">{{item.text}}</text>
+          <text class="word-item-lesson">{{item.lessonTitle}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="completion-buttons">
+      <button class="btn-primary" bindtap="restart">再来一课</button>
+    </view>
+  </view>
+</view>
