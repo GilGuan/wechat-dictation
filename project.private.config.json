@@ -4,6 +4,13 @@
   "condition": {
     "miniprogram": {
       "list": [
+        {
+          "name": "pages/debug/debug",
+          "pathName": "pages/debug/debug",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        }
       ]
     }
   },

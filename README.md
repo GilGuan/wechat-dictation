@@ -24,6 +24,12 @@ wechat-dictation/
 ├── pages/
 │   ├── lesson-select/     # 选课页面
 │   └── dictation/          # 听写页面
+├── utils/
+│   ├── tts.js             # 腾讯云TTS服务
+│   ├── config.example.js  # 配置示例
+│   └── config.js          # 实际配置（需自行创建）
+└── docs/
+    └── TTS_CONFIG.md      # TTS配置详细说明
 ```
 
 ## 技术选型
@@ -60,9 +66,34 @@ wechat-dictation/
 4. 点击播放按钮听词语
 5. 点击"下一个"继续
 
-### 3. 配置 TTS（可选）
+### 3. 配置 TTS
 
-当前使用测试音频。如需真实词语发音，请参考 `TTS_CONFIG.md` 配置腾讯云或讯飞 TTS。
+项目已集成腾讯云TTS服务,需要进行配置才能使用语音播放功能:
+
+1. 复制配置文件:
+   ```bash
+   cp utils/config.example.js utils/config.js
+   ```
+
+2. 获取腾讯云API密钥:
+   - 访问 https://console.cloud.tencent.com/cam/capi
+   - 创建或查看你的SecretId和SecretKey
+
+3. 编辑 `utils/config.js` 填入密钥:
+   ```javascript
+   module.exports = {
+     tencentCloud: {
+       secretId: '你的SecretId',
+       secretKey: '你的SecretKey'
+     }
+   }
+   ```
+
+4. 开通腾讯云TTS服务:
+   - 访问 https://console.cloud.tencent.com/tts
+   - 开通服务(可领取免费额度)
+
+详细配置说明请参考: [docs/TTS_CONFIG.md](docs/TTS_CONFIG.md)
 
 ## 使用说明
 
@@ -112,7 +143,10 @@ wechat-dictation/
 
 ## 待办事项
 
-- [ ] 配置真实 TTS API
+- [x] 配置腾讯云 TTS API ✅
+- [x] 实现API v3签名认证 ✅
+- [x] 支持语速调节 ✅
+- [ ] 音频缓存优化
 - [ ] 补充完整词库（1-6年级语文+英语）
 - [ ] 多音字校对
 - [ ] 真机全面测试

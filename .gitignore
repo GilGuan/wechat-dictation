@@ -10,6 +10,7 @@ miniprogram_npm/
 # 敏感配置文件
 config/tts-config.js
 *.secret.js
+utils/config.js
 
 # 临时文件
 *.log
