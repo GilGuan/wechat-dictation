@@ -29,9 +29,11 @@
 
 .header-right {
   flex-shrink: 0;
+  display: flex;
+  gap: 16rpx;
 }
 
-.speed-selector {
+.speed-selector, .voice-selector {
   display: flex;
   align-items: center;
   gap: 8rpx;
@@ -40,11 +42,11 @@
   border-radius: 20rpx;
 }
 
-.speed-icon {
+.speed-icon, .voice-icon {
   font-size: 24rpx;
 }
 
-.speed-text {
+.speed-text, .voice-text {
   font-size: 24rpx;
   color: #666;
 }
@@ -123,7 +125,6 @@
 
 .word-display {
   text-align: center;
-  animation: slideUp 0.4s ease-out;
 }
 
 @keyframes slideUp {
@@ -383,6 +384,12 @@
   font-size: 32rpx;
   color: #333;
   font-weight: 600;
+  flex: 1;
+}
+
+.word-item-explain {
+  font-size: 24rpx;
+  color: #07c160;
   flex: 1;
 }
 

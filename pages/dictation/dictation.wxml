@@ -12,12 +12,18 @@
           <text class="speed-text">{{speedOptions[speedIndex]}}</text>
         </view>
       </picker>
+      <picker mode="selector" range="{{voiceOptions}}" value="{{voiceIndex}}" bindchange="onVoiceChange">
+        <view class="voice-selector">
+          <text class="voice-icon">🎤</text>
+          <text class="voice-text">{{voiceOptions[voiceIndex]}}</text>
+        </view>
+      </picker>
     </view>
   </view>
 
   <!-- 进度条 -->
   <view class="progress-bar-container">
-    <progress class="progress-bar" percent="{{progress}}" active stroke-width="4" backgroundColor="#e8e8e8" activeColor="#07c160" />
+    <progress class="progress-bar" percent="{{progress}}" stroke-width="4" backgroundColor="#e8e8e8" activeColor="#07c160" />
   </view>
 
   <!-- 主内容区 -->
@@ -35,15 +41,8 @@
 
     <!-- 词语显示 -->
     <view class="word-section">
-      <!-- 播放中：只显示拼音提示 -->
-      <view wx:if="{{currentWord && isPlaying}}" class="word-display">
-        <text class="word-pinyin">{{currentWord.pinyin}}</text>
-        <text class="hint-text">请根据读音写出词语</text>
-      </view>
-
-      <!-- 播放完成：只显示拼音，等待学生写完 -->
-      <view wx:elif="{{currentWord && !isPlaying}}" class="word-display">
-        <text class="word-pinyin">{{currentWord.pinyin}}</text>
+      <view wx:if="{{currentWord}}" class="word-display">
+        <text class="word-pinyin">{{currentWord.pinyin || currentWord.pronunciation}}</text>
         <text class="hint-text">写完后点击"下一个"</text>
       </view>
 
@@ -82,8 +81,9 @@
       <view class="word-list-header">本次听写的词语：</view>
       <scroll-view scroll-y class="word-scroll">
         <view wx:for="{{words}}" wx:key="text" class="word-item">
-          <text class="word-item-pinyin">{{item.pinyin}}</text>
+          <text class="word-item-pinyin">{{item.pinyin || item.pronunciation}}</text>
           <text class="word-item-text">{{item.text}}</text>
+          <text wx:if="{{item.explain}}" class="word-item-explain">{{item.explain}}</text>
           <text class="word-item-lesson">{{item.lessonTitle}}</text>
         </view>
       </scroll-view>
