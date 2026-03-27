@@ -1,19 +1,7 @@
 {
   "libVersion": "3.15.0",
   "projectname": "wechat-dictation",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "pages/debug/debug",
-          "pathName": "pages/debug/debug",
-          "query": "",
-          "scene": null,
-          "launchMode": "default"
-        }
-      ]
-    }
-  },
+  "condition": {},
   "setting": {
     "urlCheck": false,
     "coverView": true,

@@ -1,9 +1,11 @@
 // app.js
+const config = require('./config.js')
+
 App({
   globalData: {
     userInfo: null,
     currentSession: null,
-    cloudEnvId: 'gilguan-5gmuwxiu84ee098b'
+    cloudEnvId: config.cloudEnvId
   },
 
   onLaunch() {
@@ -29,7 +31,7 @@ App({
 
     try {
       wx.cloud.init({
-        env: this.globalData.cloudEnvId || 'gilguan-5gmuwxiu84ee098b',
+        env: this.globalData.cloudEnvId,
         traceUser: true
       })
       console.log('[云开发] 初始化成功')
