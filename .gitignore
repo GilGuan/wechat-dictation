@@ -18,6 +18,7 @@ tts_*.mp3
 # 环境配置
 .env
 .env.local
+config.js
 
 # 云函数（不提交到Git）
 cloudfunctions/*/node_modules/
