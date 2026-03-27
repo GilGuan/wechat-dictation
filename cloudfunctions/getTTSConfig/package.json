@@ -1,0 +1,9 @@
+{
+  "name": "getTTSConfig",
+  "version": "1.0.0",
+  "description": "获取TTS服务配置密钥",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

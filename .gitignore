@@ -7,11 +7,6 @@ miniprogram_npm/
 .project
 .idea/
 
-# 敏感配置文件
-config/tts-config.js
-*.secret.js
-utils/config.js
-
 # 临时文件
 *.log
 *.tmp
@@ -23,3 +18,6 @@ tts_*.mp3
 # 环境配置
 .env
 .env.local
+
+# 云函数（不提交到Git）
+cloudfunctions/*/node_modules/

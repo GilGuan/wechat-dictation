@@ -435,6 +435,8 @@ function createTTSService(secretId, secretKey) {
 }
 
 module.exports = {
+  SHA256,
+  HMAC,
   TTSService,
   createTTSService
 }

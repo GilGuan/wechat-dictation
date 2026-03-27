@@ -1,5 +1,6 @@
 // pages/lesson-select/lesson-select.js
 const wordDatabase = require('../../data/wordDatabase.js')
+const { getCacheManager } = require('../../utils/audioCache')
 
 Page({
   data: {
@@ -17,12 +18,26 @@ Page({
     showWarning: false,
     warningText: '',
 
-    loading: false
+    loading: false,
+
+    cacheStats: null
   },
 
   onLoad() {
     this.loadLessons()
     this.restoreSelection()
+    this.updateCacheStats()
+  },
+
+  // 更新缓存统计
+  updateCacheStats() {
+    try {
+      const cacheManager = getCacheManager()
+      const stats = cacheManager.getStats()
+      this.setData({ cacheStats: stats })
+    } catch (e) {
+      console.error('[选课] 获取缓存统计失败:', e)
+    }
   },
 
   // 恢复上次选择
@@ -287,5 +302,64 @@ Page({
       [arr[i], arr[j]] = [arr[j], arr[i]]
     }
     return arr
+  },
+
+  // 显示缓存统计
+  showCacheStats() {
+    this.updateCacheStats()
+    const stats = this.data.cacheStats
+
+    if (!stats) {
+      wx.showToast({
+        title: '缓存信息获取失败',
+        icon: 'none'
+      })
+      return
+    }
+
+    wx.showModal({
+      title: '缓存统计',
+      content: `缓存数量: ${stats.totalCount} 个\n` +
+               `缓存大小: ${stats.totalSizeMB} MB\n` +
+               `使用率: ${stats.usagePercent}%\n` +
+               `最大限制: ${stats.maxSizeMB} MB\n` +
+               `上次清理: ${stats.lastCleanup}`,
+      showCancel: true,
+      cancelText: '关闭',
+      confirmText: '清空缓存',
+      success: (res) => {
+        if (res.confirm) {
+          this.clearCache()
+        }
+      }
+    })
+  },
+
+  // 清空缓存
+  clearCache() {
+    wx.showModal({
+      title: '清空缓存',
+      content: '确定要清空所有音频缓存吗？\n清空后需要重新下载。',
+      success: (res) => {
+        if (res.confirm) {
+          try {
+            const cacheManager = getCacheManager()
+            cacheManager.clear()
+            this.updateCacheStats()
+
+            wx.showToast({
+              title: '缓存已清空',
+              icon: 'success'
+            })
+          } catch (e) {
+            console.error('[选课] 清空缓存失败:', e)
+            wx.showToast({
+              title: '清空失败',
+              icon: 'none'
+            })
+          }
+        }
+      }
+    })
   }
 })

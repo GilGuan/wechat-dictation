@@ -1,5 +1,12 @@
 <!--pages/lesson-select/lesson-select.wxml-->
 <view class="container">
+  <!-- 缓存信息 -->
+  <view wx:if="{{cacheStats}}" class="cache-info" bindtap="showCacheStats">
+    <text class="cache-icon">💾</text>
+    <text class="cache-text">缓存: {{cacheStats.totalCount}}个 | {{cacheStats.totalSizeMB}}MB ({{cacheStats.usagePercent}}%)</text>
+    <text class="cache-action">管理</text>
+  </view>
+
   <!-- 年级选择 -->
   <view class="section">
     <view class="section-label">年级</view>

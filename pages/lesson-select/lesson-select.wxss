@@ -7,6 +7,33 @@
   min-height: 100vh;
 }
 
+/* 缓存信息 */
+.cache-info {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+  border: 2rpx solid #e8e8e8;
+  font-size: 24rpx;
+}
+
+.cache-icon {
+  margin-right: 12rpx;
+  font-size: 28rpx;
+}
+
+.cache-text {
+  flex: 1;
+  color: #666;
+}
+
+.cache-action {
+  color: #07c160;
+  font-weight: 600;
+}
+
 .section {
   margin-bottom: 32rpx;
 }

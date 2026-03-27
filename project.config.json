@@ -1,5 +1,6 @@
 {
   "miniprogramRoot": "./",
+  "cloudfunctionRoot": "cloudfunctions/",
   "projectname": "wechat-dictation",
   "description": "家庭听写助手",
   "appid": "wx27954d1c180bc1a5",
@@ -51,8 +52,18 @@
   "condition": {},
   "simulatorPluginLibVersion": {},
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "node_modules"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
+      }
+    ],
     "include": []
   },
-  "editorSetting": {}
+  "editorSetting": {},
+  "cloudfunctionTemplateRoot": "cloudfunctionTemplate/"
 }

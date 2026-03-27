@@ -1,0 +1,19 @@
+{
+  "name": "wechat-dictation",
+  "version": "1.0.0",
+  "description": "微信小程序，支持语文和英语听写，解放家长注意力，让孩子独立完成听写作业。",
+  "main": "app.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GilGuan/wechat-dictation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GilGuan/wechat-dictation/issues"
+  },
+  "homepage": "https://github.com/GilGuan/wechat-dictation#readme"
+}
