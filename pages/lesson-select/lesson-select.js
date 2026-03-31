@@ -361,5 +361,13 @@ Page({
         }
       }
     })
+  },
+
+  // 分享给好友
+  onShareAppMessage() {
+    return {
+      title: '家庭听写助手 - 轻松帮孩子听写词语',
+      path: '/pages/lesson-select/lesson-select'
+    }
   }
 })

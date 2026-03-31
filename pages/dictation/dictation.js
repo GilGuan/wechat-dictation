@@ -528,5 +528,14 @@ Page({
         }
       }
     })
+  },
+
+  // 分享给好友
+  onShareAppMessage() {
+    const progress = this.data.progress || 0
+    return {
+      title: `家庭听写助手 - 正在听写(${progress}%)`,
+      path: '/pages/lesson-select/lesson-select'
+    }
   }
 })
