@@ -12,10 +12,10 @@
           <text class="speed-text">{{speedOptions[speedIndex]}}</text>
         </view>
       </picker>
-      <picker mode="selector" range="{{voiceOptions}}" value="{{voiceIndex}}" bindchange="onVoiceChange">
+      <picker mode="selector" range="{{isEnglish ? englishVoiceOptions : voiceOptions}}" value="{{isEnglish ? englishVoiceIndex : voiceIndex}}" bindchange="onVoiceChange">
         <view class="voice-selector">
           <text class="voice-icon">🎤</text>
-          <text class="voice-text">{{voiceOptions[voiceIndex]}}</text>
+          <text class="voice-text">{{isEnglish ? englishVoiceOptions[englishVoiceIndex] : voiceOptions[voiceIndex]}}</text>
         </view>
       </picker>
     </view>

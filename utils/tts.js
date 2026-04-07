@@ -326,7 +326,7 @@ class TTSService {
       ProjectId: options.projectId || 0,
       ModelType: options.modelType || 1,
       VoiceType: options.voiceType || 101001, // 默认使用音色101001(智瑜-情感女声)
-      PrimaryLanguage: options.primaryLanguage || 1, // 1-中文
+      PrimaryLanguage: options.primaryLanguage !== undefined ? options.primaryLanguage : 1, // 1-中文, 2-英文
       SampleRate: options.sampleRate || 16000,
       Codec: options.codec || 'wav',
       EnableSubtitle: options.enableSubtitle || false

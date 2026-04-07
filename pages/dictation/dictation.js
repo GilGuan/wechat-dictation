@@ -21,8 +21,14 @@ Page({
     voiceIndex: 0,
     voiceValue: 101001,
 
+    // 英语音色选项（英式发音）
+    englishVoiceOptions: ['Catherine(英式女声)', 'Mark(英式男声)', 'Amy(英式女声)', 'Emma(英式女声)'],
+    englishVoiceIndex: 0,
+    englishVoiceValue: 101006, // 默认英式女声
+
     words: [],
     completed: false,
+    isEnglish: false, // 是否为英语科目
 
     loading: false,
     errorMsg: ''
@@ -50,10 +56,14 @@ Page({
       return
     }
 
+    // 判断是否为英语科目（英语单词有 pronunciation 字段）
+    const isEnglish = session.words[0] && session.words[0].pronunciation
+    
     this.setData({
       words: session.words,
       totalWords: session.words.length,
-      currentIndex: session.currentIndex || 0
+      currentIndex: session.currentIndex || 0,
+      isEnglish: isEnglish
     })
 
     // 恢复语速设置
@@ -65,13 +75,23 @@ Page({
       })
     }
 
-    // 恢复音色设置
-    const savedVoice = wx.getStorageSync('tts_voice')
-    if (savedVoice !== undefined && savedVoice !== null) {
-      this.setData({
-        voiceIndex: savedVoice,
-        voiceValue: this.getVoiceValue(savedVoice)
-      })
+    // 恢复音色设置（根据科目类型）
+    if (isEnglish) {
+      const savedEnglishVoice = wx.getStorageSync('tts_english_voice')
+      if (savedEnglishVoice !== undefined && savedEnglishVoice !== null) {
+        this.setData({
+          englishVoiceIndex: savedEnglishVoice,
+          englishVoiceValue: this.getEnglishVoiceValue(savedEnglishVoice)
+        })
+      }
+    } else {
+      const savedVoice = wx.getStorageSync('tts_voice')
+      if (savedVoice !== undefined && savedVoice !== null) {
+        this.setData({
+          voiceIndex: savedVoice,
+          voiceValue: this.getVoiceValue(savedVoice)
+        })
+      }
     }
 
     this.audioContext = wx.createInnerAudioContext()
@@ -162,6 +182,17 @@ Page({
     return voices[index] || 101001
   },
 
+  getEnglishVoiceValue(index) {
+    // 英式英语发音人
+    const englishVoices = [
+      101006, // Catherine - 英式女声
+      101007, // Mark - 英式男声
+      101008, // Amy - 英式女声
+      101009  // Emma - 英式女声
+    ]
+    return englishVoices[index] || 101006
+  },
+
   /**
    * 将小程序语速设置转换为腾讯云TTS语速参数
    * 小程序: 0.7, 1.0, 1.3
@@ -203,9 +234,17 @@ Page({
       throw new Error('腾讯云TTS服务未初始化')
     }
 
+    // 根据科目类型设置参数
+    const isEnglish = this.data.isEnglish
+    const voiceType = isEnglish ? this.data.englishVoiceValue : this.data.voiceValue
+    const primaryLanguage = isEnglish ? 2 : 1 // 2-英文, 1-中文
+
+    console.log(`[听写] TTS参数 - 科目: ${isEnglish ? '英语' : '语文'}, 音色: ${voiceType}, 语言: ${primaryLanguage}`)
+
     const result = await this.ttsService.textToVoice(word.text, {
       speed: ttsSpeed,
-      voiceType: this.data.voiceValue,
+      voiceType: voiceType,
+      primaryLanguage: primaryLanguage,
       sampleRate: 16000,
       codec: 'wav',
       volume: 0
@@ -328,10 +367,14 @@ Page({
     try {
       // 生成缓存key
       const ttsSpeed = this.convertSpeedToTTS(this.data.speedValue)
+      const isEnglish = this.data.isEnglish
+      const voiceType = isEnglish ? this.data.englishVoiceValue : this.data.voiceValue
+      const primaryLanguage = isEnglish ? 2 : 1
+      
       const cacheKey = this.cacheManager.generateCacheKey(
         word.text,
         ttsSpeed,
-        this.data.voiceValue,
+        voiceType,
         16000,
         'wav'
       )
@@ -509,11 +552,20 @@ Page({
   // 设置音色
   onVoiceChange(e) {
     const index = parseInt(e.detail.value)
-    this.setData({
-      voiceIndex: index,
-      voiceValue: this.getVoiceValue(index)
-    })
-    wx.setStorageSync('tts_voice', index)
+    
+    if (this.data.isEnglish) {
+      this.setData({
+        englishVoiceIndex: index,
+        englishVoiceValue: this.getEnglishVoiceValue(index)
+      })
+      wx.setStorageSync('tts_english_voice', index)
+    } else {
+      this.setData({
+        voiceIndex: index,
+        voiceValue: this.getVoiceValue(index)
+      })
+      wx.setStorageSync('tts_voice', index)
+    }
   },
 
   // 退出确认
